@@ -1,6 +1,7 @@
 import PieChartSlice from './Components/PieChartSlice';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import Slider from './Components/Slider';
 
 export type Props = {
   name: string;
@@ -13,6 +14,9 @@ const Hello: React.FC<Props> = ({}) => {
   return (
     <View style={styles.container}>
       <PieChartSlice fillColor={"darkblue"} theta={angle} sidelength={380}/>
+      <Slider width={300} height={50} min={0} max={359} defaultValue={angle} applyCallback={(newAngle) => {
+        setAngle(newAngle);
+      }}/>
     </View>
   );
 };
