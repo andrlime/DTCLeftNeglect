@@ -1,17 +1,18 @@
 import * as React from 'react'
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import Slider from '@react-native-community/slider';
 
 interface Config {
-    width: number;
-    height: number;
-    min: number;
-    max: number;
-    defaultValue: number;
-    applyCallback: (arg0: number) => void; // callback function
+    width: number; // how wide?
+    height: number; // how tall?
+    min: number; // min value
+    max: number; // max value
+    defaultValue: number; // default value before any value loads
+    applyCallback?: (arg0: number) => void; // callback function: when this is called, you can setState in a parent component
 }
 
 export const TheSlider: React.FC<Config> = ({ width, height, min, max, defaultValue, applyCallback }) => {
+    // Value of the slider
     const [val, setVal] = React.useState(defaultValue)
 
     return (
@@ -25,7 +26,9 @@ export const TheSlider: React.FC<Config> = ({ width, height, min, max, defaultVa
                 value={val}
                 onValueChange={(e) => {
                     setVal(e);
-                    applyCallback(e);
+                    if(applyCallback) {
+                        applyCallback(e);
+                    }
                 }}
             />
         </View>

@@ -3,12 +3,8 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Slider from './Components/Slider';
 
-export type Props = {
-  name: string;
-  baseEnthusiasmLevel?: number;
-};
-
-const Hello: React.FC<Props> = ({}) => {
+const Hello: React.FC = ({}) => {
+  // Angle for the pie chart in current view
   const [angle, setAngle] = React.useState(50);
 
   return (
@@ -26,12 +22,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  greeting: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    margin: 16,
-  },
+  }
 });
 
 export default Hello;
