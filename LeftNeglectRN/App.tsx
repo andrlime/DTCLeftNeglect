@@ -10,7 +10,16 @@ export const Hello: React.FC = ({}) => {
   return (
     <View style={styles.container}>
       <PieChartSlice fillColor={"darkblue"} theta={angle} sidelength={380}/>
-      <TheSlider width={300} height={50} min={0} max={359} defaultValue={angle} applyCallback={(newAngle) => {
+      <TheSlider 
+        width={300}
+        height={20}
+        min={0}
+        max={359}
+        defaultValue={angle}
+        labelText={"Angle"}
+        labelUnits={"degrees"}
+        sigfigs={2}
+        applyCallback={(newAngle) => {
         setAngle(newAngle);
       }}/>
     </View>
