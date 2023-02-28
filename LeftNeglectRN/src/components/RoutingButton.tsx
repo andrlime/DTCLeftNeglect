@@ -14,6 +14,7 @@ export const RoutingButton: React.FC<Props> = ({ bgcolor, outline, text, route, 
     // Known issues
     // If bg color is too light, the button text will still be white --> hard to read
     // Solution: use a dark color
+    // outline not implemented yet
     return (
         <View style={{display: "flex", justifyContent: "center", alignItems: "center", margin: 8}}>
             <Link to={route} onPress={ifValid}>

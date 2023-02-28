@@ -11,6 +11,7 @@ interface Props {
 }
 
 export const DropdownCallback: React.FC<Props> = ({ label, options, value, callback }) => {
+    // self explanatory function
     const getGender = (str: string) => {
         if(str == "S") return "Please select...";
         else if(str == "M") return "Male";
@@ -18,6 +19,7 @@ export const DropdownCallback: React.FC<Props> = ({ label, options, value, callb
         else return "Non-Binary";
     }
 
+    // do we show the selection thing
     const [show, setShow] = React.useState(false);
 
     return (

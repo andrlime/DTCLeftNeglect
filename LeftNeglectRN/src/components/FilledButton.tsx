@@ -12,6 +12,7 @@ export const FilledButton: React.FC<Props> = ({ bgcolor, outline, text, onPress 
     // Known issues
     // If bg color is too light, the button text will still be white --> hard to read
     // Solution: use a dark color
+    // outline also is not implemented yet
     return (
         <View style={{display: "flex", justifyContent: "center", alignItems: "center", margin: 8}}>
             <TouchableHighlight onPress={onPress}>

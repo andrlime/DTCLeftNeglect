@@ -15,6 +15,7 @@ export const NumberInputCallback: React.FC<Props<number>> = ({ label, placeholde
             <TextInput keyboardType={Platform.OS === "android" ? "numeric" : "number-pad"} style={styles.input} onChangeText={(e: string) => {
                 if(!e) callback(0);
                 
+                // if the value is not a number, make it not show a number
                 let val = e;
                 val.replace('\d', '');
                 if(isNaN(parseInt(val))) {

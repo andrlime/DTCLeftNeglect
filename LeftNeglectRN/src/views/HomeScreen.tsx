@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import PieChartSlice from '../components/PieChartSlice';
 import TheSlider from '../components/Slider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import RoutingButton from '../components/RoutingButton';
+import SettingsButton from '../components/SettingsButton';
 
 export const HomeScreen: React.FC = () => {
     const [angle, setAngle] = React.useState(50);
@@ -23,28 +25,22 @@ export const HomeScreen: React.FC = () => {
 
     return (
         <View style={styles.container}>
+            <View style={{width: "90%", alignItems: "flex-end"}}>
+                <SettingsButton/>
+            </View>
             <PieChartSlice fillColor={"darkblue"} theta={angle} sidelength={380}/>
-            <TheSlider 
-            width={300}
-            height={20}
-            min={0}
-            max={359}
-            defaultValue={angle}
-            labelText={"Angle"}
-            labelUnits={"degrees"}
-            sigfigs={2}
-            applyCallback={(newAngle) => {
-                setAngle(newAngle);
-            }}/>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+        padding: 4,
+        display: "flex",
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: "100%"
     }
 });
 

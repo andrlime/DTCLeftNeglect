@@ -28,7 +28,7 @@ export const ProfileSetup: React.FC = () => {
                 name: name, age: age, gender: gender
             }}`)
         }
-    }
+    };
 
     const [showKeyboard, setShowKeyboard] = React.useState(true);
 
