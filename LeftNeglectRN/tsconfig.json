@@ -4,8 +4,8 @@
         "baseUrl": ".",
     },
     "paths": {
-        "*": ["src/*", "Components/"],
+        "*": ["src/*", "src/components/*", "src/views/*"],
         "tests": ["tests/*"],
-        "@components/*": ["src/components/*"],
+        "@components/*": ["src/components/*", "src/views/*"],
     }
 }

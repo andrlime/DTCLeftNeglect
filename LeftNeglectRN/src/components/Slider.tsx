@@ -15,7 +15,7 @@ interface Config {
     applyCallback?: (arg0: number) => void; // callback function: when this is called, you can setState in a parent component
 }
 
-export const TheSlider: React.FC<Config> = ({ width, height, min, max, defaultValue, labelText, labelUnits, sigfigs, showLabel = true, applyCallback }) => {
+export const TheSlider: React.FC<Config> = ({ width, height, min, max, defaultValue, labelText, labelUnits, sigfigs, showLabel = false, applyCallback }) => {
     // Value of the slider
     const [val, setVal] = React.useState(defaultValue)
     
