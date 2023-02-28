@@ -1,37 +1,23 @@
-import PieChartSlice from './src/components/PieChartSlice';
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import TheSlider from './src/components/Slider';
+import { NativeRouter, Route, Routes, Link } from 'react-router-native';
+import GlassesSettings from './src/views/GlassesSettings';
+import ProfileSetup from './src/views/ProfileSetup';
+import ReminderSettings from './src/views/ReminderSettings';
+import SetupBluetooth from './src/views/SetupBluetooth';
+import HomeScreen from './src/views/HomeScreen';
 
-export const Hello: React.FC = ({}) => {
-  // Angle for the pie chart in current view
-  const [angle, setAngle] = React.useState(50);
-
+export const App: React.FC = ({}) => {
   return (
-    <View style={styles.container}>
-      <PieChartSlice fillColor={"darkblue"} theta={angle} sidelength={380}/>
-      <TheSlider 
-        width={300}
-        height={20}
-        min={0}
-        max={359}
-        defaultValue={angle}
-        labelText={"Angle"}
-        labelUnits={"degrees"}
-        sigfigs={2}
-        applyCallback={(newAngle) => {
-        setAngle(newAngle);
-      }}/>
-    </View>
+    <NativeRouter>
+      <Routes>
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/settings/glasses" element={<GlassesSettings />} />
+        <Route path="/settings/reminders" element={<ReminderSettings />} />
+        <Route path="/onboard/profile" element={<ProfileSetup />} />
+        <Route path="/onboard/bt" element={<SetupBluetooth />} />
+      </Routes>
+    </NativeRouter>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});
-
-export default Hello;
+export default App;
