@@ -1,11 +1,25 @@
 import * as React from 'react'
 import { View, StyleSheet, Text } from 'react-native';
 import { Link } from 'react-router-native';
+import { useNavigate } from 'react-router-dom';
 import PieChartSlice from '../components/PieChartSlice';
 import TheSlider from '../components/Slider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const HomeScreen: React.FC = () => {
     const [angle, setAngle] = React.useState(50);
+
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+        AsyncStorage.getItem('@user_profile').then((val) => {
+          let data = JSON.parse(val + "");
+          if(!data.setup) {
+            // make the user setup their profile
+            navigate('/onboard/profile');
+          }
+        });
+    },[]);
 
     return (
         <View style={styles.container}>
@@ -22,11 +36,6 @@ export const HomeScreen: React.FC = () => {
             applyCallback={(newAngle) => {
                 setAngle(newAngle);
             }}/>
-
-
-            <Link to="/onboard/profile">
-                <Text style={{backgroundColor: "red"}}>Go to home screen</Text>
-            </Link>
         </View>
     );
 };

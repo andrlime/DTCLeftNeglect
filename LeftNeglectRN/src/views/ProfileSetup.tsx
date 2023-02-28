@@ -20,7 +20,7 @@ export const ProfileSetup: React.FC = () => {
     const setStorage = async () => {
         try {
             await AsyncStorage.setItem('@user_profile', JSON.stringify({
-                name: name, age: age, gender: gender
+                name: name, age: age, gender: gender, setup: true
             }))
         } catch (e) {
             // saving error! we can do something with the UI when this happens
