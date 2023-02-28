@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { View, StyleSheet, Text, Button } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import FilledButton from './FilledButton';
 
 interface Props {
   label: string,
@@ -22,18 +23,23 @@ export const DropdownCallback: React.FC<Props> = ({ label, options, value, callb
     return (
         <View>
             <Text style={styles.heading2}>{label}</Text>
-            <Text style={{...styles.input, color: value == "S" ? "#777" : "#000"}} onPress={() => setShow(!show)}>{getGender(value)}</Text>
+            <Text style={{...styles.input, color: value == "S" ? "#777" : "#000"}} onPress={() => {
+                setShow(!show);
+            }}>{getGender(value)}</Text>
             {show ? <View>
                 <Picker
                     selectedValue={value}
-                    onValueChange={(itemValue: string, _: number) => callback(itemValue)}
-                >
+                    onValueChange={(itemValue: string, _: number) => callback(itemValue)}>
+
                     <Picker.Item label={"Press to select..."} value={"S"} />
+
                     {options.map((e) => (
                         <Picker.Item key={e.label+e.value+Math.random()} label={e.label} value={e.value} />
                     ))}
+
                 </Picker>
-                <Button title='Done' onPress={() => setShow(false)}/>
+
+                <FilledButton bgcolor={"darkblue"} outline={false} text={"Done"} onPress={() => setShow(false)}/>
             </View> : ""}
         </View>
     );

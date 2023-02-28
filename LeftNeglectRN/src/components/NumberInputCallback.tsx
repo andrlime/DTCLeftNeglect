@@ -2,10 +2,10 @@ import * as React from 'react'
 import { View, TextInput, StyleSheet, Text, Platform } from 'react-native';
 
 interface Props<T> {
-  label: string,
-  placeholder: string,
-  value: T | undefined | string,
-  callback: (value: T) => void
+    label: string,
+    placeholder: string,
+    value: T | undefined | string,
+    callback: (value: T) => void
 }
 
 export const NumberInputCallback: React.FC<Props<number>> = ({ label, placeholder, value, callback }) => {
