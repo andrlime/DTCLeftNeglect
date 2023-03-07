@@ -32,6 +32,7 @@ export const QualSlider: React.FC<Config> = ({ width, defaultVal, title, labelTe
                 maximumValue={max - 1}
                 maximumTrackTintColor="#cccccc"
                 minimumTrackTintColor="darkblue"
+                step={1}
                 value={val}
                 onValueChange={(e) => {
                     setVal(Math.round(e));
@@ -40,6 +41,10 @@ export const QualSlider: React.FC<Config> = ({ width, defaultVal, title, labelTe
                     }
                 }}
             />
+            <View style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                <Text style={{fontSize: 15, padding: 2, color: "#0C0A00"}}>{labelText[0]}</Text>
+                <Text style={{fontSize: 15, padding: 2, color: "#0C0A00", fontWeight: "700"}}>{labelText[labelText.length-1]}</Text>
+            </View>
         </View>
     );
 };
