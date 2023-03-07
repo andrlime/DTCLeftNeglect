@@ -1,42 +1,43 @@
 import * as React from 'react'
-import { View, StyleSheet, Text, Dimensions, Image } from 'react-native';
+import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import PieChartSlice from './PieChartSlice'
-
-interface Props {
-    glassesBattery: number // Glasses battery level, %
-    clipBattery: number // Clip battery level, %
-}
+import { colors, shadows, proportions } from "../styles"
 
 interface DeviceBatteryProps {
     batteryLevel: number, // Abstract device battery level, %
     deviceName: string // Device that <DeviceBattery /> is displaying
 }
 
+interface Props {
+    glassesBattery: number // Glasses battery level, % (1-100)
+    clipBattery: number // Clip battery level, %
+}
+
 // Dimensions
-const getWidth = () => (Dimensions.get("screen").width * 0.8) // Width of component, pixels (component = <BatteriesDashboard />)
-const getHeight = () => getWidth() * 0.7 // Height of component, pixels (required because gradient doesn't scale with padding)
-const getDeviceBatteryWidth = () => getWidth() * 0.4 // Width of <DeviceBattery />, pixels (excluding whitespace)
+const WIDTH = proportions.StandardComponent.width // Width of <BatteriesDashboard />, pixels
+const HEIGHT = WIDTH * 0.7 // Height of <BatteriesDashboard />, pixels (required because gradient doesn't scale when <BatteriesDashboard /> is padded)
+const DEVICE_BATTERY_WIDTH = WIDTH * 0.4 // Width of <DeviceBattery />, pixels
 
 const DeviceBattery: React.FC<DeviceBatteryProps> = ({ batteryLevel, deviceName }) => {
-    const WIDTH = getDeviceBatteryWidth()
+    const WIDTH = DEVICE_BATTERY_WIDTH
 
     const FILL_COLORS = {
-        green: "#A6F787",
-        yellow: "#FFF065"
+        green: colors.Success.Default_Weak,
+        yellow: colors.Custom.Yellow
     }
     const TEXT_COLORS = {
-        green: "#008A00",
-        yellow: "#EAAC30"
+        green: colors.Success.Default,
+        yellow: colors.Warning.Default
     }
     const IMAGE_DIMENSIONS = {
         glasses: {
-            height: WIDTH * 0.2,
-            width: 2.97 * WIDTH * 0.2
+            height: DEVICE_BATTERY_WIDTH * 0.175,
+            width: DEVICE_BATTERY_WIDTH * 0.175 * 2.97
         },
         clip: {
-            height: WIDTH * 0.4,
-            width: WIDTH * 0.4
+            height: DEVICE_BATTERY_WIDTH * 0.4,
+            width: DEVICE_BATTERY_WIDTH * 0.4
         }
     }
 
@@ -44,12 +45,12 @@ const DeviceBattery: React.FC<DeviceBatteryProps> = ({ batteryLevel, deviceName 
     const FILL_COLOR = batteryLevel > 50 ? FILL_COLORS.green : FILL_COLORS.yellow // Change fill color according to battery level
     const TEXT_COLOR = batteryLevel > 50 ? TEXT_COLORS.green : TEXT_COLORS.yellow // Change text color according to battery level
     
-    const getImageHeight = () => { // Get appropriately scaled height of image
+    const getIconHeight = () => { // Get appropriately scaled height of image
         if (deviceName == "Glasses") return IMAGE_DIMENSIONS.glasses.height
         else if (deviceName == "Clip") return IMAGE_DIMENSIONS.clip.height
         return 0
     }
-    const getImageWidth = () => { // Get appropriately scaled width of image
+    const getIconWidth = () => { // Get appropriately scaled width of image
         if (deviceName == "Glasses") return IMAGE_DIMENSIONS.glasses.width
         else if (deviceName == "Clip") return IMAGE_DIMENSIONS.clip.width
         return 0
@@ -57,11 +58,12 @@ const DeviceBattery: React.FC<DeviceBatteryProps> = ({ batteryLevel, deviceName 
     const getIcon = () => { // Return icon corresponding to device name
         if (deviceName == "Glasses") return require("../../assets/glasses.png")
         else if (deviceName == "Clip") return require("../../assets/clip.png")
+        return <Text>No Icon - Incorrect "deviceName" prop in "DeviceBattery" component</Text>
     }
 
     return <View style={deviceBatteryStyles.container}>
-        <View>
-            <Image source={getIcon()} style={{ width: getImageWidth(), height: getImageHeight(), transform: [{ translateX: getImageWidth() * -0.5}, { translateY: getImageHeight() * -0.5 }], ...deviceBatteryStyles.icon}}/>
+        <View style={{ alignItems: "center" }}>
+            <Image source={getIcon()} style={{ width: getIconWidth(), height: getIconHeight(), transform: [{ translateX: (getIconWidth() * -0.5)}, { translateY: (getIconHeight() * -0.5) }], ...deviceBatteryStyles.icon}}/>
             <PieChartSlice fillColor={FILL_COLOR} backgroundColor={"#FCFCFC"} theta={THETA} sidelength={WIDTH} strokeWidth={10}/>
         </View>
         <View style={deviceBatteryStyles.verticalSpacing}/>
@@ -70,7 +72,7 @@ const DeviceBattery: React.FC<DeviceBatteryProps> = ({ batteryLevel, deviceName 
 }
 
 export const BatteriesDashboard: React.FC<Props> = ({ glassesBattery, clipBattery }) => {
-    return <View style={[styles.container, { width: getWidth() }]} >
+    return <View style={[styles.container, { width: WIDTH }]} >
         <LinearGradient colors={['#F0F8FF', '#D6FFE4']} start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }} style={styles.gradient}/>
         <DeviceBattery batteryLevel={glassesBattery} deviceName={"Glasses"}/>
         <View style={styles.centerSpacing}/>
@@ -78,30 +80,21 @@ export const BatteriesDashboard: React.FC<Props> = ({ glassesBattery, clipBatter
     </View>
 }
 
-export default BatteriesDashboard
-
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        height: getHeight(),
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        height: HEIGHT,
+        ...shadows.defaultShadow
     },
     gradient: {
-        borderRadius: 20,
+        borderRadius: proportions.StandardComponent.borderRadius,
         position: 'absolute',
         left: 0,
         right: 0,
         top: 0,
-        height: getHeight(),
+        height: HEIGHT,
     },
     centerSpacing: {
         width: "5%"
@@ -122,3 +115,5 @@ const deviceBatteryStyles = StyleSheet.create({
         left: "50%",
     },
 })
+
+export default BatteriesDashboard
