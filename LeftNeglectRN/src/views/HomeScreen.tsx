@@ -7,6 +7,8 @@ import TheSlider from '../components/Slider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RoutingButton from '../components/RoutingButton';
 import SettingsButton from '../components/SettingsButton';
+import BatteriesDashboard from '../components/BatteriesDashboard';
+import CircleProgressChart from '../components/CircleProgressChart';
 
 export const HomeScreen: React.FC = () => {
     const [angle, setAngle] = React.useState(50);
@@ -28,7 +30,8 @@ export const HomeScreen: React.FC = () => {
             <View style={{width: "90%", alignItems: "flex-end"}}>
                 <SettingsButton/>
             </View>
-            <PieChartSlice fillColor={"darkblue"} theta={angle} sidelength={380}/>
+            <CircleProgressChart />
+            <BatteriesDashboard glassesBattery={70} clipBattery={30}/>
         </View>
     );
 };

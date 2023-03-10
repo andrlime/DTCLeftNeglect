@@ -5,10 +5,12 @@ import Svg, { Path, Circle, Rect } from 'react-native-svg';
 interface Props {
   theta: number; // Angle
   fillColor: string; // Color of the actual pie
+  backgroundColor: string; // Color of background pie
   sidelength: number; // Length of the bounding box
+  strokeWidth: number; // Width of stroke
 }
 
-export const PieChartSlice: React.FC<Props> = ({ theta, fillColor, sidelength }) => {
+export const PieChartSlice: React.FC<Props> = ({ theta, fillColor, sidelength, strokeWidth }) => {
     // Angle in radians
     const ANGLE_RAD = (theta * Math.PI) / 180;
 
@@ -16,7 +18,7 @@ export const PieChartSlice: React.FC<Props> = ({ theta, fillColor, sidelength })
     const START_POINT = sidelength/2; // width / 2
 
     // stroke width, can add to config later
-    const STROKE_WIDTH = 45;
+    const STROKE_WIDTH = strokeWidth;
     
     // xOut: number -> number
     // gets the x coordinate relative to start_point of the endpoint of an arc of angle angle
@@ -43,7 +45,7 @@ export const PieChartSlice: React.FC<Props> = ({ theta, fillColor, sidelength })
 
     return (
         <View>
-            <Text style={{position: "relative", top: "50%", textAlign: "center", fontWeight: "800", fontSize: 32}}>{AMOUNT_DONE}%</Text>
+            {/* <Text style={{position: "relative", top: "50%", textAlign: "center", fontWeight: "800", fontSize: 32}}>{AMOUNT_DONE}%</Text> */}
             <Svg width={sidelength} height={sidelength} fill="none">
                 <Path
                     d={BLACK_PATH_DATA}
