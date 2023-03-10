@@ -1,14 +1,13 @@
 import * as React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, FlatList } from 'react-native'
 import ChartCard from "./ChartCard"
 import GoalSettingsButton from "./GoalSettingsButton"
-import PieChartSlice from './PieChartSlice'
 
 const CircleProgressChart: React.FC = ({}) => {
-    return <ChartCard>
-        <GoalSettingsButton />
-        
-    </ChartCard>
+    return <View style={{padding: 10}}>
+            <GoalSettingsButton/>
+            <FlatList style={{flexGrow: 0}} horizontal data={["Overall Progress", "Time To Look Left", "Look Left At Least"]} renderItem={(e) => <ChartCard data={e.item}/>}/>
+        </View>
 }
 
 export default CircleProgressChart

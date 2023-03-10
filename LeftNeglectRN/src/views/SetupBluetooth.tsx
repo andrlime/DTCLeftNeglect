@@ -5,7 +5,7 @@ import RoutingButton from '../components/RoutingButton';
 export const SetupBluetooth: React.FC = () => {
     return (
         <View style={styles.container}>
-            <Text>Instructions can go here</Text>
+            <Text style={{padding: 10}}>Instructions to connect to Bluetooth will go here, and is a step for future development.</Text>
             <RoutingButton bgcolor={"purple"} outline={false} text={"Next"} route={"/"} ifValid={() => {}}/>
         </View>
     );

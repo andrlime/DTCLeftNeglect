@@ -22,7 +22,7 @@ export const TheSlider: React.FC<Config> = ({ width, height, min, max, defaultVa
     
     const textView = (
         <View style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-            <Text style={{fontSize: 15, padding: 2, color: "#0C0A00"}}>{labelText}</Text>
+            <Text style={{fontSize: 15, padding: 2, color: "#0C0A00", fontWeight: "800"}}>{labelText}</Text>
             <Text style={{fontSize: 15, padding: 2, color: "#0C0A00", fontWeight: "700"}}>{prefix} {Math.round(val*(10**sigfigs))/(10**sigfigs)} {labelUnits}</Text>
         </View>
     )

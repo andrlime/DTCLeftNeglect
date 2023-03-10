@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { View, Text } from 'react-native';
-import Svg, { Path, Circle, Rect } from 'react-native-svg';
+import RN, { View } from 'react-native';
+import Svg, { Path, Text, TSpan } from 'react-native-svg';
 
 interface Props {
   theta: number; // Angle
@@ -8,9 +8,10 @@ interface Props {
   backgroundColor: string; // Color of background pie
   sidelength: number; // Length of the bounding box
   strokeWidth: number; // Width of stroke
+  label: string;
 }
 
-export const PieChartSlice: React.FC<Props> = ({ theta, fillColor, sidelength, strokeWidth }) => {
+export const PieChartSlice: React.FC<Props> = ({ theta, fillColor, sidelength, strokeWidth, label }) => {
     // Angle in radians
     const ANGLE_RAD = (theta * Math.PI) / 180;
 
@@ -39,9 +40,6 @@ export const PieChartSlice: React.FC<Props> = ({ theta, fillColor, sidelength, s
     
     // Black path - the background
     const BLACK_PATH_DATA = `M ${START_POINT} ${STROKE_WIDTH} A ${START_POINT-STROKE_WIDTH} ${START_POINT-STROKE_WIDTH} 0 1 1 ${xOut(359*2*3.14/360)} ${yOut(359*2*3.14/360)}`;
-    
-    // Percent done
-    const AMOUNT_DONE = Math.round(1000*theta/360)/10;
 
     return (
         <View>
@@ -61,6 +59,7 @@ export const PieChartSlice: React.FC<Props> = ({ theta, fillColor, sidelength, s
                     strokeLinecap="round"
                     strokeLinejoin="round"
                 />
+                <Text x={sidelength*0.5} y={sidelength-15} fill={"#FFFFFF"} fontSize={14}><TSpan textAnchor='middle'>{label}</TSpan></Text>
             </Svg>
         </View>
     );

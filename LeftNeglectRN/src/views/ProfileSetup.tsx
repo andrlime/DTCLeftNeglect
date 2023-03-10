@@ -30,14 +30,12 @@ export const ProfileSetup: React.FC = () => {
         }
     };
 
-    const [showKeyboard, setShowKeyboard] = React.useState(true);
-
     return (
         <View style={styles.container}>
             <Text style={styles.heading1}>Create Profile</Text>
             <View style={{padding: 1, backgroundColor: "#ECECEC"}}></View>
 
-            <TextInputCallback callback={setName} value={name} label={"Name"} placeholder={"Your name?"}/>
+            <TextInputCallback callback={setName} value={name} label={"Preferred Name"} placeholder={"Your preferred name?"}/>
             <NumberInputCallback callback={setAge} value={age != 0 ? age : ""} label={"Age"} placeholder={"Your age?"}/>
             
             <DropdownCallback label={"Gender"} value={gender} callback={setGender} options={[

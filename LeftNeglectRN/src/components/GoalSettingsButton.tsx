@@ -21,7 +21,7 @@ const GoalSettingsButton: React.FC = ({}) => {
                 />
             </Svg>
             <View style={styles.centerSpacing}/>
-        <Text style={styles.text}>WEEKLY GOAL SETTINGS</Text>
+        <Text style={styles.text}>Settings</Text>
         </View>
     </Link>
 }
