@@ -6,7 +6,8 @@ interface Props {
     children?: React.ReactNode
 }
 
-const ChartCard: React.FC<Props> = ({ children }) => <View style={styles.container}>
+const ChartCard: React.FC<Props> = ({ children }) => 
+<View style={styles.container}>
     {children}
 </View>
 

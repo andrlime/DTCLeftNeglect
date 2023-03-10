@@ -50,8 +50,8 @@ export const PieChartSlice: React.FC<Props> = ({ theta, fillColor, sidelength, s
                 <Path
                     d={BLACK_PATH_DATA}
                     stroke={"#ccccccaa"}
-                    strokeWidth={STROKE_WIDTH*0.8}
-                    strokeLinecap="square"
+                    strokeWidth={STROKE_WIDTH}
+                    strokeLinecap="round"
                     strokeLinejoin="round"
                 />
                 <Path
