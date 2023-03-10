@@ -2,7 +2,7 @@
 run.py
 
 Runs Bluetooth scanner and connects to BLE device for
-DTC 1 Left Neglect (2023-Winter-1-1) proof of concept
+DTC 1 Left Neglect (2023-Winter-Section 1-Team 1) proof of concept
 
 Andrew Li
 Northwestern University 2026
@@ -31,8 +31,8 @@ class MPUData(LittleEndianStructure):
                 ("gyroZ", c_float),
                 ("time", c_ulong)]
 
-async def main(args: argparse.Namespace):
-    print("scanning...")
+async def read() -> MPUData:
+    print("**SCANNING")
 
     devices = await BleakScanner.discover(
         return_adv=True, service_uuids=[_SERVICE_UUID]
@@ -53,17 +53,7 @@ async def main(args: argparse.Namespace):
 
         gatt = (await client.read_gatt_char(_DATA_CHAR))
         data = MPUData.from_buffer(gatt)
-        print(data.time)
+        return data
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument(
-        "--macos-use-bdaddr",
-        action="store_true",
-        help="when true use Bluetooth address instead of UUID on macOS",
-    )
-
-    args = parser.parse_args()
-
-    asyncio.run(main(args))
+    asyncio.run(read())
