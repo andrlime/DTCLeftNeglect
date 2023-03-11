@@ -24,12 +24,16 @@ const DeviceBattery: React.FC<DeviceBatteryProps> = ({ batteryLevel, deviceName 
 
     const FILL_COLORS = {
         green: colors.Success.Default_Weak,
-        yellow: colors.Custom.Yellow
+        yellow: colors.Custom.Yellow,
+        red: colors.Custom.Red
     }
+
     const TEXT_COLORS = {
         green: colors.Success.Default,
-        yellow: colors.Warning.Default
+        yellow: colors.Warning.Default,
+        red: colors.Custom.Darker_Red,
     }
+
     const IMAGE_DIMENSIONS = {
         glasses: {
             height: DEVICE_BATTERY_WIDTH * 0.175,
@@ -41,10 +45,23 @@ const DeviceBattery: React.FC<DeviceBatteryProps> = ({ batteryLevel, deviceName 
         }
     }
 
-    const THETA = batteryLevel / 100 * 360 // Angle, degrees
-    const FILL_COLOR = batteryLevel > 50 ? FILL_COLORS.green : FILL_COLORS.yellow // Change fill color according to battery level
-    const TEXT_COLOR = batteryLevel > 50 ? TEXT_COLORS.green : TEXT_COLORS.yellow // Change text color according to battery level
+    // const THETA = batteryLevel / 100 * 360 // Angle, degrees
+    // const FILL_COLOR = batteryLevel > 50 ? FILL_COLORS.green : FILL_COLORS.yellow // Change fill color according to battery level
+    // const TEXT_COLOR = batteryLevel > 50 ? TEXT_COLORS.green : TEXT_COLORS.yellow // Change text color according to battery level
     
+    const getTheta = () => batteryLevel > 99 ? 359 : batteryLevel / 100 * 359 // Angle, degrees (rendering issue if theta >= 360)
+
+    const getFillColor = () => { // Change fill color according to battery level
+        if (batteryLevel > 50) return FILL_COLORS.green
+        else if (batteryLevel > 10) return FILL_COLORS.yellow
+        return FILL_COLORS.red
+    }
+    const getTextColor = () => { // Change fill color according to battery level
+        if (batteryLevel > 50) return TEXT_COLORS.green
+        else if (batteryLevel > 10) return TEXT_COLORS.yellow
+        return TEXT_COLORS.red
+    } 
+
     const getIconHeight = () => { // Get appropriately scaled height of image
         if (deviceName == "Glasses") return IMAGE_DIMENSIONS.glasses.height
         else if (deviceName == "Clip") return IMAGE_DIMENSIONS.clip.height
@@ -64,10 +81,10 @@ const DeviceBattery: React.FC<DeviceBatteryProps> = ({ batteryLevel, deviceName 
     return <View style={deviceBatteryStyles.container}>
         <View style={{ alignItems: "center" }}>
             <Image source={getIcon()} style={{ width: getIconWidth(), height: getIconHeight(), transform: [{ translateX: (getIconWidth() * -0.5)}, { translateY: (getIconHeight() * -0.5) }], ...deviceBatteryStyles.icon}}/>
-            <PieChartSlice fillColor={FILL_COLOR} backgroundColor={"#FCFCFC"} theta={THETA} sidelength={WIDTH} strokeWidth={10}/>
+            <PieChartSlice label={""} fillColor={getFillColor()} backgroundColor={"#FCFCFC"} theta={getTheta()} sidelength={WIDTH} strokeWidth={10}/>
         </View>
         <View style={deviceBatteryStyles.verticalSpacing}/>
-        <Text style={{ color: TEXT_COLOR, textAlign: "center", fontWeight: "bold" }}>{deviceName}{"\n"}Battery: {batteryLevel}%</Text>
+        <Text style={{ color: getTextColor(), textAlign: "center", fontWeight: "bold" }}>{deviceName}{"\n"}Battery: {batteryLevel}%</Text>
     </View>
 }
 

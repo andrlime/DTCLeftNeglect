@@ -1,5 +1,7 @@
 export const Custom = {
   Yellow: "#FFF065",
+  Red: "#FF3539",
+  Darker_Red: "#E90004",
 };
 
 export const Grayscale = {
